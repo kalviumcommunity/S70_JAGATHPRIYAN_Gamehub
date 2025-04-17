@@ -2,11 +2,11 @@ const express = require('express');
 const Game = require('../models/Game'); // Import the Game model
 const router = express.Router();
 
-// GET route to fetch all games
+// GET route to fetch all games 
 router.get('/games', async (req, res) => {
   try {
-    const games = await Game.find();  // Fetch all games from MongoDB
-    res.json(games);  // Return the games data as JSON response
+    const games = await Game.find(); 
+    res.json(games); 
   } catch (error) {
     console.error('Error fetching games:', error);
     res.status(500).json({ error: 'Failed to fetch games' });
