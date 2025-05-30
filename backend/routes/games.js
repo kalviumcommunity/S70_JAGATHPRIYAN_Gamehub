@@ -51,4 +51,22 @@ router.post('/addGames', async (req, res) => {
   }
 });
 
+router.put('/updateGames/:id', async (req, res) => {
+  try {
+    const updatedGame = await Game.findByIdAndUpdate(
+      req.params.id,          
+      req.body,                
+      { new: true, runValidators: true } 
+    );
+
+    if (!updatedGame) {
+      return res.status(404).json({ message: 'Game not found' });
+    }
+
+    res.status(200).json(updatedGame);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating game', error });
+  }
+});
+
 module.exports = router;
