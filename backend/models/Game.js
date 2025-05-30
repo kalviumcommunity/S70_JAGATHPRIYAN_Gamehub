@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-// Define the schema for a game
 const gameSchema = new mongoose.Schema({
   title: { type: String, required: true },
   thumbnail: { type: String, required: true },
@@ -14,7 +13,6 @@ const gameSchema = new mongoose.Schema({
   freetogame_profile_url: { type: String, required: true }
 });
 
-// Create a model for the game based on the schema
 const Game = mongoose.model('Game', gameSchema);
 
 module.exports = Game;
