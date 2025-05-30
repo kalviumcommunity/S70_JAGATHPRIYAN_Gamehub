@@ -39,4 +39,16 @@ router.get('/games/:id', (req, res) => {
   }
 });
 
+router.post('/addGames', async (req, res) => {
+  try {
+    const gameData = req.body;
+    const newGame = new Game(gameData);
+    const savedGame = await newGame.save();
+    res.status(201).json(savedGame);
+  } catch (error) {
+    console.error('Error saving game:', error);
+    res.status(400).json({ message: 'Failed to save game', error });
+  }
+});
+
 module.exports = router;
