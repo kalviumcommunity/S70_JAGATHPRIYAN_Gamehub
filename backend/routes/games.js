@@ -1,32 +1,41 @@
 const express = require('express');
-const Game = require('../models/Game'); // Import the Game model
+const Game = require('../models/Game'); 
 const router = express.Router();
+const fs = require('fs');
+const path = require('path');
 
 // GET route to fetch all games 
-router.get('/games', async (req, res) => {
+
+
+router.get('/games', (req, res) => {
   try {
-    const games = await Game.find(); 
-    res.json(games); 
+    const filePath = path.join(__dirname, '../data/game.json'); 
+    const data = fs.readFileSync(filePath, 'utf-8');
+    const games = JSON.parse(data);
+    res.json(games);
   } catch (error) {
-    console.error('Error fetching games:', error);
-    res.status(500).json({ error: 'Failed to fetch games' });
+    console.error('Error reading games.json:', error);
+    res.status(500).json({ error: 'Failed to read games data' });
   }
 });
 
 // GET route to fetch a specific game by ID
-router.get('/games/:id', async (req, res) => {
+router.get('/games/:id', (req, res) => {
   try {
-    const gameId = req.params.id;
-    const game = await Game.findById(gameId);  // Fetch game by ID from MongoDB
+    const filePath = path.join(__dirname, '../data/game.json');
+    const data = fs.readFileSync(filePath, 'utf-8');
+    const games = JSON.parse(data);
+
+    const game = games.find(g => g.id == req.params.id);
 
     if (game) {
-      res.json(game);  // Return the game details as JSON response
+      res.json(game);
     } else {
-      res.status(404).json({ error: 'Game not found' });  // Return 404 if game not found
+      res.status(404).json({ error: 'Game not found' });
     }
   } catch (error) {
-    console.error('Error fetching game details:', error);
-    res.status(500).json({ error: 'Failed to fetch game details' });
+    console.error('Error reading game by ID:', error);
+    res.status(500).json({ error: 'Failed to fetch game' });
   }
 });
 
