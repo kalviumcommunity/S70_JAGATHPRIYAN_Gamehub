@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
+  password: { type: String, required: true },
+  posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 });
 
 userSchema.pre('save', async function (next) {
