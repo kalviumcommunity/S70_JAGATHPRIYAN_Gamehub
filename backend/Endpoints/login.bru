@@ -1,0 +1,18 @@
+meta {
+  name: login
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3000/api/database/read
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username":"jagathpriyan1",
+    "password":"12345"
+  }
+}

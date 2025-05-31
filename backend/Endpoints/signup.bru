@@ -1,0 +1,18 @@
+meta {
+  name: signup
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3000/api/database/write
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username":"jagathpriyan1",
+    "password":"12345"
+  }
+}
